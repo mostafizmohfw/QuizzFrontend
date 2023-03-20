@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import { RouterProvider } from "react-router-dom";
+// import "./AxiosInterceptors";
+import ProjectRouter from "./components/router/ProjectRouter";
+import PublicRouter from "./components/router/PublicRouter";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function App() {	const [auth, setAuth] = useState(false);
+
+	useEffect(() => {
+		if (localStorage.token !== undefined) {
+			setAuth(true);
+		}
+	}, []);
+
+	return (
+		<>
+			{auth ? (
+				<RouterProvider router={ProjectRouter} />
+			) : (
+				<RouterProvider router={PublicRouter} />
+			)}
+		</>
+	);
 }
 
 export default App;
